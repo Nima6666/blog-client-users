@@ -23,6 +23,8 @@ export default function Header() {
   const user = useSelector((state) => state.userReducer.userIn);
   const loading = useSelector((state) => state.loadingReducer.loading);
 
+  console.log(user);
+
   useEffect(() => {
     async function getCurrentUser() {
       const response = await axios.get(
