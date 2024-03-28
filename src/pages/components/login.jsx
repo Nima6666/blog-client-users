@@ -3,20 +3,21 @@ import { Link } from "react-router-dom";
 
 import { FaGoogle } from "react-icons/fa";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formAction } from "../../store/slices/loginFormSlice";
 
-export default function LoginForm({ loading }) {
+export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
+  const loading = useSelector((state) => state.loadingReducer.loading);
+
   async function handleLogin(event) {
     event.preventDefault();
     try {
-      console.log("fetching login");
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_SERVERAPI}/login`,
         {
           email: email,
@@ -26,7 +27,6 @@ export default function LoginForm({ loading }) {
           withCredentials: true,
         }
       );
-      console.log(response.data);
       window.location.href = "/";
     } catch (err) {
       console.log(err);

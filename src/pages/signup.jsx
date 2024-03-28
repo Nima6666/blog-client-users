@@ -1,6 +1,11 @@
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { formAction } from "../store/slices/loginFormSlice";
+
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -10,6 +15,10 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const pageAnim = {
     hidden: {
@@ -48,9 +57,15 @@ export default function Signup() {
         `${import.meta.env.VITE_SERVERAPI}/register`,
         formData
       );
-      console.log(response);
+      if (response.data && response.data.success) {
+        toast(response.data.message);
+        dispatch(formAction.setForm(true));
+        navigate("/");
+      } else if (response.data && !response.data.success) {
+        toast.error(response.data.message);
+      }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

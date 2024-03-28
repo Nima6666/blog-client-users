@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getPosts = async () => {
-  console.log("getting all posts");
   try {
     const response = await axios.get(`${import.meta.env.VITE_SERVERAPI}/posts`);
 
@@ -13,7 +12,6 @@ export const getPosts = async () => {
 };
 
 export const getPost = async (id) => {
-  console.log("getting clicked post");
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_SERVERAPI}/posts/${id}`
@@ -46,7 +44,7 @@ export const commentHandle = async (comment, id) => {
     );
     return response.data;
   } catch (err) {
-    console.log(err);
+    return Error;
   }
 };
 

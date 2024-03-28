@@ -8,6 +8,8 @@ import gangstaImg from "/gangsta.jpg";
 import { formAction } from "../../store/slices/loginFormSlice";
 import { Link } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+
 export default function Header() {
   // const [isForm, setIsForm] = useState(false);
   const isForm = useSelector((state) => state.loginFormReducer.isForm);
@@ -34,9 +36,7 @@ export default function Header() {
     // document.querySelector("#restOfTheThings").addEventListener("click", () => {
     //   setToggleLogout(false);
     // });
-  }, []);
-
-  console.log("loggedIn usr: ", user);
+  }, [dispatch]);
 
   function handleClose() {
     dispatch(formAction.setForm(false));
@@ -153,45 +153,11 @@ export default function Header() {
             )}
           </motion.div>
         )}
-        {/* {!loading && loggedInUser.name && (
-          <>
-            <motion.div
-              className="flex items-center relative"
-              variants={buttonAnim}
-              initial="hidden"
-              animate="visible"
-              disabled={loading}
-            >
-              <div className="text-lg p-2">
-                {loggedInUser.name.split(" ")[0]}
-              </div>
-              <img
-                src={
-                  loggedInUser.profileImg ? loggedInUser.profileImg : gangstaImg
-                }
-                onLoad={handleImageLoad}
-                className="h-10 rounded-full"
-                onClick={() =>
-                  toggleLogout ? setToggleLogout(false) : setToggleLogout(true)
-                }
-              />
-              {toggleLogout && (
-                <motion.div
-                  id="logoutBtn"
-                  className="absolute top-[120%] right-[0px] bg-red-600 text-white rounded-md shadow-md shadow-red-700"
-                >
-                  <button onClick={logout} className="p-2">
-                    logout
-                  </button>
-                </motion.div>
-              )}
-            </motion.div>
-          </>
-        )} */}
       </header>
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
         {isForm && <Model modelOpen={isForm} handleClose={handleClose} />}
       </AnimatePresence>
+      <ToastContainer />
     </>
   );
 }
