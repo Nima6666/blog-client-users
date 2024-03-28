@@ -38,7 +38,7 @@ export default function Header() {
     // document.querySelector("#restOfTheThings").addEventListener("click", () => {
     //   setToggleLogout(false);
     // });
-  }, [dispatch]);
+  }, [dispatch, loading]);
 
   function handleClose() {
     dispatch(formAction.setForm(false));
